@@ -1,7 +1,7 @@
 const regex = /^(?<countryCode>0|\+84)(?<mobilePrefix>\d{2})\d{7}$/;
 
-exports.phoneNumberInfo = function (number) {
-  const regexExec = regex.exec(number);
+exports.phoneNumberInfo = function (phoneNumberString) {
+  const regexExec = regex.exec(phoneNumberString);
 
   if (regexExec) {
     const { mobilePrefix, countryCode } = regexExec.groups;
@@ -11,13 +11,13 @@ exports.phoneNumberInfo = function (number) {
     let networkOperator = "Other";
 
     if (countryCode === "+84") {
-      phoneNumber = number.replace(/^\+84/, "0");
-      globalPhoneNumber = number;
+      phoneNumber = phoneNumberString.replace(/^\+84/, "0");
+      globalPhoneNumber = phoneNumberString;
     }
 
     if (countryCode === "0") {
-      phoneNumber = number;
-      globalPhoneNumber = number.replace(/^0/, "+84");
+      phoneNumber = phoneNumberString;
+      globalPhoneNumber = phoneNumberString.replace(/^0/, "+84");
     }
 
     if (/32|33|34|35|36|37|38|39/.test(mobilePrefix)) {
